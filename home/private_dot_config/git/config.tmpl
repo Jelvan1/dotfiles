@@ -1,0 +1,62 @@
+[core]
+	autocrlf = false
+	pager = delta
+
+[delta]
+	features = catppuccin-macchiato
+	line-numbers = true
+	navigate = true ; use n and N to move between diff sections
+	side-by-side = false
+
+[diff]
+	algorithm = histogram
+	colorMoved = default
+	tool = nvimdiff
+
+[difftool]
+	prompt = false
+	trustExitCode = true
+
+[difftool "nvimdiff"]
+	cmd = nvim -d $LOCAL $REMOTE -c 'wincmd l'
+
+[include]
+	path = {{ .chezmoi.homeDir }}/.config/delta/themes.gitconfig
+
+[init]
+	defaultBranch = main
+
+[interactive]
+	diffFilter = delta --color-only
+
+[merge]
+	conflictStyle = zdiff3
+	tool = nvimdiff
+
+[mergetool]
+	keepBackup = false
+	prompt = false
+	trustExitCode = true
+
+[mergetool "nvimdiff"]
+	cmd = nvim -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+
+[pull]
+	ff = only
+
+[rebase]
+	autoStash = true
+
+[rerere]
+	enabled = true
+
+{{ if eq .chezmoi.os "windows" -}}
+
+[safe]
+	directory = * ; Git is too strict about directory ownership
+
+{{ end -}}
+
+[user]
+	email = 43109265+Jelvan1@users.noreply.github.com
+	name = Jelle
