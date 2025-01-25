@@ -1,0 +1,20 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- /* chezmoi:template:line-endings=native */ -}}
+
+{{- $in := dict -}}
+{{- if not (.chezmoi.stdin | empty) -}}
+{{-     $in = fromJson .chezmoi.stdin -}}
+{{- else -}}
+{{-     $in = $in | setValueAtPath "version" .lazyvim.install_version }}
+{{- end -}}
+
+{{- $extras := list -}}
+{{- range .lazyvim.extras -}}
+{{-     $extras = append $extras (printf "lazyvim.plugins.extras.%s" .) -}}
+{{- end -}}
+
+{{- $in
+    | setValueAtPath "extras" $extras
+    | setValueAtPath "install_version" .lazyvim.install_version
+    | toPrettyJson
+    | trim -}}
