@@ -1,0 +1,24 @@
+auto_sync = false
+dialect = "uk"
+exit_mode = "return-query"
+history_filter = [
+    "^cd\b",
+    "^eza\b",
+    "^ls\b",
+    "^zi?\b",
+]
+inline_height = 16
+invert = true
+prefers_reduced_motion = true
+search_mode = "skim"
+show_help = false
+show_tabs = false
+style = "compact"
+update_check = false
+
+# TODO: not supported by nushell -- https://docs.atuin.sh/configuration/config/
+enter_accept = true
+keymap_mode = "auto"
+
+[keys]
+scroll_exits = false

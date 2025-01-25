@@ -1,0 +1,21 @@
+disableStartupPopups: true
+
+{{- if eq .chezmoi.os "linux" }}
+
+git:
+  # TODO: not supported on windows -- https://github.com/jesseduffield/lazygit/issues/1453
+  paging:
+    pager: delta --paging=never
+
+{{- end }}
+
+gui:
+  expandFocusedSidePanel: true
+  expandedSidePanelWeight: 2
+  filterMode: fuzzy
+  nerdFontsVersion: "3"
+  scrollHeight: 8
+  scrollPastBottom: false
+  showCommandLog: false
+  showRandomTip: false
+  sidePanelWidth: .2

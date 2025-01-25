@@ -1,0 +1,47 @@
+[".local/share/nushell/vendor/autoload/completions-bat.nu"]
+type = "file"
+url = "https://github.com/nushell/nu_scripts/raw/main/custom-completions/bat/bat-completions.nu"
+refreshPeriod = "168h"
+
+[".local/share/nushell/vendor/autoload/completions-btm.nu"]
+type = "file"
+url = "https://github.com/nushell/nu_scripts/raw/main/custom-completions/btm/btm-completions.nu"
+refreshPeriod = "168h"
+
+[".local/share/nushell/vendor/autoload/completions-eza.nu"]
+type = "file"
+url = "https://github.com/nushell/nu_scripts/raw/main/custom-completions/eza/eza-completions.nu"
+refreshPeriod = "168h"
+
+[".local/share/nushell/vendor/autoload/completions-git.nu"]
+type = "file"
+url = "https://github.com/nushell/nu_scripts/raw/main/custom-completions/git/git-completions.nu"
+refreshPeriod = "168h"
+
+[".local/share/nushell/vendor/autoload/completions-rg.nu"]
+type = "file"
+url = "https://github.com/nushell/nu_scripts/raw/main/custom-completions/rg/rg-completions.nu"
+refreshPeriod = "168h"
+
+[".local/share/nushell/vendor/autoload/completions-typst.nu"]
+type = "file"
+url = "https://github.com/nushell/nu_scripts/raw/main/custom-completions/typst/typst-completions.nu"
+refreshPeriod = "168h"
+
+{{- if eq .chezmoi.os "linux" }}
+
+[".local/share/nushell/vendor/autoload/completions-zellij.nu"]
+type = "file"
+url = "https://github.com/nushell/nu_scripts/raw/main/custom-completions/zellij/zellij-completions.nu"
+refreshPeriod = "168h"
+
+{{- end }}
+
+{{- if eq .chezmoi.os "windows" }}
+
+[".local/share/nushell/vendor/autoload/completions-scoop.nu"]
+type = "file"
+url = "https://github.com/nushell/nu_scripts/raw/main/custom-completions/scoop/scoop-completions.nu"
+refreshPeriod = "168h"
+
+{{- end }}

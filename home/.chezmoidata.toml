@@ -1,0 +1,74 @@
+[packages.common]
+all = [
+    "7zip",
+    "bat",
+    "bottom",
+    "chezmoi",
+    "difftastic",
+    "dotnet-sdk",
+    "dust",
+    "eza",
+    "fastfetch",
+    "fclones",
+    "fd",
+    "ffmpeg",
+    "firefox",
+    "gcc",
+    "git",
+    "gitui",
+    "hyperfine",
+    "keepassxc",
+    "lazygit",
+    "lua51",
+    "luarocks",
+    "neovim",
+    "pueue",
+    "python",
+    "ripgrep",
+    "starship",
+    "tldr",
+    "typst",
+    "yazi",
+    "zig",
+    "zoxide",
+]
+linux = [
+    "git-delta",
+    "jujutsu",
+    "npm",
+    "nushell",
+    "ripgrep-all",
+    "rustup",
+    "ttf-hack-nerd",
+]
+windows = [
+    "Hack-NF-Mono",
+    "delta",
+    "jj",
+    "nodejs",
+    "nu",
+    "rga",
+    "rustup-gnu",
+]
+
+[packages]
+linux = [
+    "atuin",
+    "ghostty",
+    "make",
+    "man-db",
+    "noto-fonts", # ttf-font provider for firefox
+    "openssh",
+    "pipewire-jack", # jack provider for ffmpeg, firefox
+    "python-virtualenv",
+    "rsync",
+    "skim",
+    "unzip",
+    "wget",
+    "xsel",
+    "zellij",
+]
+windows = [
+    "fzf",
+    "wezterm",
+]

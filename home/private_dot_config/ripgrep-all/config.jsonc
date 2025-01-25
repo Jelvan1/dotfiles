@@ -1,0 +1,4 @@
+{
+    "$schema": "./config.v1.schema.json",
+    "custom_adapters": []
+}

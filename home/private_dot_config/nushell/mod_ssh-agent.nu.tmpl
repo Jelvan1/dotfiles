@@ -1,0 +1,132 @@
+{{ if eq .chezmoi.os "linux" -}}
+
+use std assert
+
+# display help for ssh-agent commands
+export def ssh-agent []: nothing -> nothing {
+    help ssh-agent
+}
+
+# start the ssh-agent
+export def --env "ssh-agent start" []: nothing -> nothing {
+    let ssh_env_file = ssh-env-file
+    if ($ssh_env_file | path exists) {
+        let ssh_env = open $ssh_env_file
+        assert ($"/proc/($ssh_env.SSH_AGENT_PID)" | path exists)
+        assert ($ssh_env.SSH_AUTH_SOCK | path exists)
+        $ssh_env | load-env
+        return
+    }
+    ^ssh-agent -c
+    | lines
+    | first 2
+    | parse "setenv {name} {value};"
+    | transpose -dir
+    | tee { save -f $ssh_env_file } | load-env
+}
+
+# stop the ssh-agent
+export def --env "ssh-agent stop" []: nothing -> nothing {
+    let ssh_env_file = ssh-env-file
+    if not ($ssh_env_file | path exists) {
+        return
+    }
+    ^ssh-agent -c -k
+    | lines
+    | first 2
+    | parse "unsetenv {name};"
+    | hide-env ...$in.name
+    rm -f $ssh_env_file
+}
+
+# show ssh-agent if active + any dangling ssh-agents
+export def "ssh-agent show" []: nothing -> record {
+    let dangling = dangling-agents
+    let nbr_agents = $dangling.agents | length
+    let nbr_sockets = $dangling.sockets | length
+    if $nbr_agents > 0 or $nbr_sockets > 0 {
+        print ("use: ssh-agent clean up" | nu-highlight)
+        print $"# dangling agents  = ($nbr_agents)"
+        print $"# dangling sockets = ($nbr_sockets)"
+    }
+
+    let ssh_env_file = ssh-env-file
+    if ($ssh_env_file | path exists) {
+        open $ssh_env_file | insert identities (
+            ^ssh-add -l
+            | complete
+            | (if $in.exit_code == 0 { get stdout })
+            | lines)
+    }
+}
+
+# clean up dangling ssh-agents
+export def --env "ssh-agent clean up" []: nothing -> nothing {
+    let ssh_env_file = ssh-env-file
+    if not ($ssh_env_file | path exists) {
+        hide-env -i SSH_AGENT_PID SSH_AUTH_SOCK
+        rm -f $ssh_env_file
+    }
+    let dangling = dangling-agents
+    $dangling.agents | kill-agents
+    $dangling.sockets | rm-sockets
+}
+
+def ssh-env-file []: nothing -> path {
+    $nu.temp-path | path join $"ssh-agent-($env.USER).nuon"
+}
+
+def dangling-agents []: nothing -> record {
+    mut agents = all-agents
+    mut sockets = all-sockets
+    let ssh_env_file = ssh-env-file
+    if ($ssh_env_file | path exists) {
+        let ssh_env = open $ssh_env_file
+        assert ($"/proc/($ssh_env.SSH_AGENT_PID)" | path exists)
+        assert ($ssh_env.SSH_AUTH_SOCK | path exists)
+        let agent_pid = $ssh_env.SSH_AGENT_PID | into int
+        let socket = $ssh_env.SSH_AUTH_SOCK | to socket | get 0
+        $agents = $agents | where pid != $agent_pid
+        $sockets = $sockets | where ppid != $socket.ppid
+    }
+    { agents: $agents, sockets: $sockets }
+}
+
+def all-agents []: nothing -> table {
+    ps | where name == ssh-agent | select pid
+}
+
+def all-sockets []: nothing -> table {
+    let dirs = [/tmp] | append (if TMPDIR in $env { $env.TMPDIR }) | uniq
+    (fd
+        --case-sensitive
+        --exact-depth 2
+        --full-path
+        --type socket
+        ...($dirs | each { [--search-path, $in] } | flatten)
+        $'/ssh-[A-Za-z0-9]+/agent\.\d+$'
+    | lines
+    | to socket)
+}
+
+def "to socket" []: [
+    string -> table
+    list<string> -> table
+] {
+    parse "{path}/agent.{ppid}" | update ppid { into int }
+}
+
+def kill-agents []: table -> nothing {
+    each { kill -f $in.pid } | ignore # kill
+}
+
+def rm-sockets []: table -> nothing {
+    let sockets = $in
+    $sockets.path | each { rm -fpr $in } | ignore
+}
+
+export-env {
+    ssh-agent start
+}
+
+{{- end }}

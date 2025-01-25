@@ -1,0 +1,7 @@
+[ui]
+diff.format = "git"
+pager = "delta"
+
+[user]
+email = "43109265+Jelvan1@users.noreply.github.com"
+name = "Jelle"

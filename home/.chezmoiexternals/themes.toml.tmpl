@@ -1,0 +1,38 @@
+[".config/bat/themes/Catppuccin Macchiato.tmTheme"]
+type = "file"
+url = "https://github.com/catppuccin/bat/raw/main/themes/Catppuccin Macchiato.tmTheme"
+refreshPeriod = "168h"
+
+[".config/delta/themes.gitconfig"]
+type = "file"
+url = "https://github.com/catppuccin/delta/raw/main/catppuccin.gitconfig"
+refreshPeriod = "168h"
+
+[".config/eza/theme.yml"]
+type = "file"
+url = "https://github.com/eza-community/eza-themes/raw/main/themes/catppuccin.yml"
+refreshPeriod = "168h"
+
+[".config/gitui/theme.ron"]
+type = "file"
+url = "https://github.com/catppuccin/gitui/raw/main/themes/catppuccin-macchiato.ron"
+refreshPeriod = "168h"
+
+[".config/nushell/scripts/themes/catppuccin-macchiato.nu"]
+type = "file"
+url = "https://github.com/nushell/nu_scripts/raw/main/themes/nu-themes/catppuccin-macchiato.nu"
+refreshPeriod = "168h"
+
+[".config/yazi/theme.toml"]
+type = "file"
+url = "https://github.com/catppuccin/yazi/raw/main/themes/macchiato/catppuccin-macchiato-blue.toml"
+filter.command = "nu"
+filter.args = [
+    "--stdin",
+    "-c",
+    {{ printf `
+        from toml
+        | update manager.syntect_theme "%s/.config/bat/themes/Catppuccin Macchiato.tmTheme"
+        | to toml` .chezmoi.homeDir | quote }}
+]
+refreshPeriod = "168h"

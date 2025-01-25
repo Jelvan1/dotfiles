@@ -1,0 +1,5 @@
+{{ if eq .chezmoi.os "linux" -}}
+
+{{- output "atuin" "gen-completions" "--shell" "nushell" | trim -}}
+
+{{- end }}
