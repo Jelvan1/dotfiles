@@ -1,0 +1,5 @@
+{{ if eq .chezmoi.os "linux" -}}
+
+{{- output "atuin" "init" "nu" "--disable-up-arrow" | trim -}}
+
+{{- end }}

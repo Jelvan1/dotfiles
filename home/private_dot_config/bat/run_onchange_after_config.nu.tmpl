@@ -1,0 +1,7 @@
+{{- $url := "https://github.com/catppuccin/bat/raw/main/themes/Catppuccin Macchiato.tmTheme" -}}
+{{- $theme := output "nu" "-c" (printf `http get -r "%s"` $url) | trim -}}
+
+# include theme to trigger cache build
+{{ $theme | comment "# " }}
+
+bat cache --build

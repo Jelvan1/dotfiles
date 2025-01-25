@@ -1,2 +1,20 @@
+{{- $work := not (.chezmoi.hostname | contains "home") -}}
+
 [diff]
 pager = "delta"
+
+[hooks.init.post]
+script = "{{ .chezmoi.workingTree }}/home/.chezmoihooks/init-{{ .chezmoi.os }}.nu"
+args = [
+    "{{ .chezmoi.homeDir }}",
+    "{{ .chezmoi.workingTree }}/home/.chezmoidata.toml",
+]
+
+{{- if eq .chezmoi.os "linux" }}
+
+# default interpreters are not defined for Linux
+# https://www.chezmoi.io/reference/configuration-file/interpreters
+[interpreters]
+nu = { command = "nu" }
+
+{{- end }}

@@ -1,0 +1,5 @@
+{{ if eq .chezmoi.os "windows" -}}
+
+{{- joinPath .chezmoi.homeDir ".local/share/nushell/vendor" -}}
+
+{{- end }}

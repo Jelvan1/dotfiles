@@ -1,0 +1,140 @@
+$env.config.keybindings = [
+    {
+        name: fuzzy_filefind
+        modifier: control
+        keycode: char_t
+        mode: [emacs, vi_insert]
+        event: {
+            send: ExecuteHostCommand
+            cmd: "commandline edit --insert (
+{{- if eq .chezmoi.os "linux" }}
+                sk
+{{- else }}
+                fzf
+{{- end }}
+                | decode utf-8
+                | str trim
+            )"
+        }
+    }
+{{- if eq .chezmoi.os "windows" }}
+    {
+        name: fuzzy_history
+        modifier: control
+        keycode: char_r
+        mode: [emacs, vi_insert]
+        event: {
+            send: ExecuteHostCommand
+            cmd: "commandline edit --insert (
+                history
+                | get command
+                | reverse
+                | uniq
+                | str join (char -i 0)
+                | fzf
+                    --preview '{} | nu-highlight'
+                    --preview-window 'bottom:1:wrap'
+                    --scheme history
+                    --read0
+                    --tiebreak chunk
+                    --bind alt-up:preview-up,alt-down:preview-down
+                    # -q (commandline)
+                | decode utf-8
+                | str trim
+            )"
+        }
+    }
+{{- end }}
+    {
+        name: fuzzy_change_dir
+        modifier: alt
+        keycode: char_c
+        mode: [emacs, vi_insert]
+        event: {
+            send: ExecuteHostCommand
+            cmd: "z (
+                fd -H0 -t d
+{{- if eq .chezmoi.os "linux" }}
+                | sk --read0
+{{- else }}
+                | fzf --read0
+{{- end }}
+                | decode utf-8
+                | str trim
+            )"
+        }
+    }
+    {
+        name: move_down
+        modifier: control
+        keycode: char_j
+        mode: [vi_normal, vi_insert]
+        event: {
+            until: [
+                { send: menudown }
+                { send: down }
+            ]
+        }
+    }
+    {
+        name: move_up
+        modifier: control
+        keycode: char_k
+        mode: [vi_normal, vi_insert]
+        event: {
+            until: [
+                { send: menuup }
+                { send: up }
+            ]
+        }
+    }
+    {
+        name: redo_change # overrule history_menu
+        modifier: control
+        keycode: char_r
+        mode: vi_normal
+        event: { edit: redo }
+    }
+    {
+        name: take_history_hint
+        modifier: control
+        keycode: char_y
+        mode: vi_insert
+        event: { send: historyhintcomplete }
+    }
+    {
+        name: move_to_line_end # don't historyhintcomplete
+        modifier: control
+        keycode: char_e
+        mode: vi_insert
+        event: { edit: movetolineend }
+    }
+    {
+        name: cut_line_to_end
+        modifier: control
+        keycode: char_k
+        mode: vi_insert
+        event: { edit: cuttolineend }
+    }
+    {
+        name: cut_line_from_start
+        modifier: control
+        keycode: char_u
+        mode: vi_insert
+        event: { edit: cutfromstart }
+    }
+    {
+        name: cut_word_right
+        modifier: control
+        keycode: delete
+        mode: vi_insert
+        event: { edit: cutwordright }
+    }
+    {
+        name: cut_word_left
+        modifier: control
+        keycode: backspace
+        mode: vi_insert
+        event: { edit: cutwordleft }
+    }
+]
