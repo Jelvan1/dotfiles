@@ -1,0 +1,5 @@
+{{- $url := "https://github.com/catppuccin/bat/raw/main/themes/Catppuccin Macchiato.tmTheme" -}}
+{{- $theme := output "nu" "-c" (printf `http get -r "%s"` $url) | trim -}}
+
+# hash = {{ $theme | sha256sum }}
+bat cache --build

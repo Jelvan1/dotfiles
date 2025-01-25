@@ -1,0 +1,21 @@
+{{ if eq .chezmoi.os "windows" -}}
+
+{{- $url := "https://github.com/catppuccin/fzf/raw/main/README.md" -}}
+{{- $theme := output "nu" "-c" (printf `
+    http get -r %s
+    | collect # otherwise parse doesn't work multi line
+    | parse -r r#'(?s)<summary>🌺 Macchiato</summary>[^<]*?@"(.*?)"@'#
+    | $in.capture0.0
+    | str trim
+    | lines
+    | where $it != "--multi"
+    | str join " "` $url) | trim -}}
+
+$env.FZF_DEFAULT_OPTS = "{{- $theme }} --height 40% --layout reverse --inline-info --multi"
+$env.FZF_DEFAULT_COMMAND = "fd --type f"
+
+# used by `fzf --preview '{cmd}'` which execs `$SHELL -c {cmd}`
+# https://github.com/junegunn/fzf#preview-window
+$env.SHELL = "nu"
+
+{{- end }}

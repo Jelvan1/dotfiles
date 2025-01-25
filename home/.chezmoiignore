@@ -1,0 +1,15 @@
+.config/chezmoi
+.local/share/chezmoi
+
+{{ if ne .chezmoi.os "linux" }}
+.config/atuin
+.config/ghostty
+.config/zellij
+{{ end }}
+
+{{ if ne .chezmoi.os "windows" }}
+.config/wezterm
+AppData
+{{ else }}
+.config/scoop
+{{ end }}

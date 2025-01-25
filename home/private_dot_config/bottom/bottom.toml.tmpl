@@ -1,0 +1,5 @@
+{{- $url := "https://github.com/catppuccin/bottom/raw/main/themes/macchiato.toml" -}}
+{{- output "nu" "-c" (printf "http get -r %s" $url) | trim }}
+
+[flags]
+tree = true

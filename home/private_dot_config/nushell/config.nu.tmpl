@@ -1,0 +1,17 @@
+$env.VISUAL = "nvim"
+
+$env.config.edit_mode = "vi"
+$env.config.show_banner = false
+$env.config.use_kitty_protocol = true # support ctrl + backspace
+
+# TODO: remove after fix https://github.com/nushell/nushell/issues/5585
+$env.config.shell_integration.osc133 = ("WEZTERM_PANE" not-in $env)
+
+source keybindings.nu
+source themes/catppuccin-macchiato.nu
+
+{{- if eq .chezmoi.os "linux" }}
+
+use mod_ssh-agent.nu *
+
+{{- end }}
