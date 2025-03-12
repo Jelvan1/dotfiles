@@ -70,5 +70,6 @@ linux = [
 ]
 windows = [
     "fzf",
+    "powertoys",
     "wezterm",
 ]

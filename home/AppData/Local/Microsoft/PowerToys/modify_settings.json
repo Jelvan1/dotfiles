@@ -1,0 +1,50 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- /* chezmoi:template:line-endings=crlf */ -}}
+
+{{- $in := dict -}}
+{{- if not (.chezmoi.stdin | empty) -}}
+{{-     $in = .chezmoi.stdin | fromJson -}}
+{{- end -}}
+
+{{- $out := mustMergeOverwrite (deepCopy $in) (dict
+    "download_updates_automatically" false
+    "enabled" (dict
+        "AdvancedPaste" false
+        "AlwaysOnTop" false
+        "Awake" false
+        "CmdNotFound" false
+        "ColorPicker" true
+        "CropAndLock" false
+        "EnvironmentVariables" false
+        "FancyZones" false
+        "File Explorer" false
+        "File Locksmith" false
+        "FindMyMouse" false
+        "Hosts" false
+        "Image Resizer" false
+        "Keyboard Manager" false
+        "Measure Tool" false
+        "MouseHighlighter" false
+        "MouseJump" false
+        "MousePointerCrosshairs" false
+        "MouseWithoutBorders" false
+        "NewPlus" false
+        "Peek" false
+        "PowerRename" false
+        "PowerToys Run" true
+        "QuickAccent" false
+        "RegistryPreview" false
+        "Shortcut Guide" false
+        "TextExtractor" false
+        "Workspaces" false
+        "ZoomIt" false)
+    "enable_experimentation" false
+    "show_new_updates_toast_notification" false
+    "show_whats_new_after_updates" false
+    "startup" false) -}}
+
+{{- if deepEqual $in $out -}}
+{{-     .chezmoi.stdin -}}
+{{- else -}}
+{{-     $out | toJson -}}
+{{- end -}}

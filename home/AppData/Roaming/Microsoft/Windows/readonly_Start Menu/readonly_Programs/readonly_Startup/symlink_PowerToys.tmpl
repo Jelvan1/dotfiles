@@ -1,0 +1,3 @@
+{{- output "nu" "-c"
+    `scoop prefix powertoys | path expand -n | str replace -a '\' '/'` | trim -}}
+/PowerToys.exe
