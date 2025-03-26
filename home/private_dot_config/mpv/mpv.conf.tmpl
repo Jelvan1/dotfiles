@@ -1,0 +1,9 @@
+{{- $url := "https://github.com/catppuccin/mpv/raw/main/themes/macchiato/blue.conf" -}}
+{{- output "nu" "-c" (printf `
+    http get -r %s
+    | str replace -r r##'background-color='#[\da-f]{6}'\n'## ""` $url) | trim }}
+
+keep-open
+osd-bar=no
+sub-font-size=36
+title-bar=no

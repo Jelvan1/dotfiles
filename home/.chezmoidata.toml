@@ -22,6 +22,7 @@ all = [
     "less",
     "lua51",
     "luarocks",
+    "mpv",
     "neovim",
     "pueue",
     "python",

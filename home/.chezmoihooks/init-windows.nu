@@ -78,6 +78,13 @@ def patches [home_path: path]: nothing -> record {
                 reject env_set persist pre_install | update depends lua51
             }
         )
+        mpv: (
+            patch mpv Extras {
+                # remove portable folder => don't use config in scoop dir
+                # https://mpv.io/manual/master/#files-on-windows
+                reject persist
+            }
+        )
         wezterm: (
             patch wezterm Extras {
                 reject notes | patch-context-menu
