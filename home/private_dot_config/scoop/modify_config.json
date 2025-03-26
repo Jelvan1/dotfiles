@@ -1,0 +1,15 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- /* chezmoi:template:line-endings=crlf */ -}}
+
+{{- $in := dict -}}
+{{- if not (.chezmoi.stdin | empty) -}}
+{{-     $in = .chezmoi.stdin | fromJson -}}
+{{- end -}}
+
+{{- $out := (deepCopy $in) | setValueAtPath "aria2-warning-enabled" false -}}
+
+{{- if deepEqual $in $out -}}
+{{-     .chezmoi.stdin -}}
+{{- else -}}
+{{-     $out | toPrettyJson -}}
+{{- end -}}

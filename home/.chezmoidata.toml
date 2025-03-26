@@ -19,6 +19,7 @@ all = [
     "hyperfine",
     "keepassxc",
     "lazygit",
+    "less",
     "lua51",
     "luarocks",
     "neovim",
@@ -69,6 +70,7 @@ linux = [
     "zellij",
 ]
 windows = [
+    "aria2",
     "fzf",
     "powertoys",
     "wezterm",
