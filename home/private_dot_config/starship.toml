@@ -1,3 +1,11 @@
 "$schema" = "https://starship.rs/config-schema.json"
 
 add_newline = false
+
+# https://starship.rs/config/#custom-commands
+[custom.git_email]
+command = "git config user.email"
+when = true
+require_repo = true # when = "git rev-parse --git-dir"
+style = "bold yellow"
+format = "by [$output]($style) "
