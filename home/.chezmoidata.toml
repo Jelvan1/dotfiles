@@ -17,6 +17,7 @@ all = [
     "git",
     "gitui",
     "hyperfine",
+    "jq",
     "keepassxc",
     "lazygit",
     "less",

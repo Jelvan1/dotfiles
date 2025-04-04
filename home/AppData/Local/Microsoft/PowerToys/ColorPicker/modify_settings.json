@@ -6,19 +6,20 @@
 {{-     $in = .chezmoi.stdin | fromJson -}}
 {{- end -}}
 
-{{- $out := mustMergeOverwrite (deepCopy $in) (dict
-    "name" "ColorPicker"
-    "properties" (dict
-        "ActivationShortcut" (dict
-            "alt" false
-            "code" 67
-            "ctrl" false
-            "key" ""
-            "shift" true
-            "win" true))) -}}
+{{- $out := $in | jq `
+    .name = "ColorPicker"
+    | .properties = {
+        "ActivationShortcut": {
+            "alt": false,
+            "code": 67,
+            "ctrl": false,
+            "key": "",
+            "shift": true,
+            "win": true
+        }
+    }` | first -}}
 
-{{- /* deepEqual doesn't work */ -}}
-{{- if eq ($in | toJson) ($out | toJson) -}}
+{{- if deepEqual $in $out -}}
 {{-     .chezmoi.stdin -}}
 {{- else -}}
 {{-     $out | toJson -}}
