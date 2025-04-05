@@ -3,9 +3,7 @@
 
 {{- $in := dict -}}
 {{- if not (.chezmoi.stdin | empty) -}}
-{{-     $in = fromJson .chezmoi.stdin -}}
-{{- else -}}
-{{-     $in = $in | setValueAtPath "version" .lazyvim.install_version }}
+{{-     $in = .chezmoi.stdin | fromJson -}}
 {{- end -}}
 
 {{- $extras := list -}}
@@ -13,8 +11,13 @@
 {{-     $extras = append $extras (printf "lazyvim.plugins.extras.%s" .) -}}
 {{- end -}}
 
-{{- $in
+{{- $out := (deepCopy $in)
     | setValueAtPath "extras" $extras
     | setValueAtPath "install_version" .lazyvim.install_version
-    | toPrettyJson
-    | trim -}}
+    | setValueAtPath "version" .lazyvim.install_version -}}
+
+{{- if deepEqual $in $out -}}
+{{-     .chezmoi.stdin -}}
+{{- else -}}
+{{-     $out | toPrettyJson | trim -}}
+{{- end -}}

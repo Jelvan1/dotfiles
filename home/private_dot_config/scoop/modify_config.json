@@ -6,7 +6,7 @@
 {{-     $in = .chezmoi.stdin | fromJson -}}
 {{- end -}}
 
-{{- $out := (deepCopy $in) | setValueAtPath "aria2-warning-enabled" false -}}
+{{- $out := $in | jq `."aria2-warning-enabled" = false` | first -}}
 
 {{- if deepEqual $in $out -}}
 {{-     .chezmoi.stdin -}}
