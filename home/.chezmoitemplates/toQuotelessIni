@@ -1,0 +1,13 @@
+{{- /* Outputs INI format with minimal quotes, unlike toIni */ -}}
+{{- /* https://www.chezmoi.io/reference/templates/functions/toIni/ */ -}}
+{{- $empty := true -}}
+{{- range $section, $pairs := . -}}
+{{-     if not $empty -}}
+{{-         printf "\n" -}}
+{{-     end -}}
+{{-     printf "[%s]\n" $section -}}
+{{-     range $key, $value := $pairs -}}
+{{-         $key }}={{ $value }}{{ "\n" -}}
+{{-     end -}}
+{{-     $empty = false -}}
+{{- end -}}
