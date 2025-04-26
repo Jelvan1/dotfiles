@@ -1,0 +1,12 @@
+{{- /* chezmoi:template:line-endings=native */ -}}
+
+{{- $install_path := "/opt/zen-browser-bin" -}}
+{{- if eq .chezmoi.os "windows" -}}
+{{-     $install_path = output "nu" "-c"
+                        `scoop prefix zen-browser | path expand` | trim -}}
+{{- end -}}
+{{- $install_hash := mozillaInstallHash $install_path -}}
+
+[{{ $install_hash }}]
+Default=profile
+Locked=1

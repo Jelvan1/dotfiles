@@ -11,10 +11,14 @@ def install-apps [new_apps: list<string>, home_path: path]: nothing -> nothing {
 
     let old = scoop export | from json
 
-    let new_buckets = [extras main nerd-fonts versions]
+    let new_buckets = [extras jelvan1 main nerd-fonts versions]
     let old_buckets = $old | get buckets.Name
     for $bucket in ($new_buckets | where $it not-in $old_buckets) {
-        scoop bucket add $bucket
+        if $bucket == jelvan1 {
+            scoop bucket add jelvan1 https://github.com/Jelvan1/scoop-bucket
+        } else {
+            scoop bucket add $bucket
+        }
     }
 
     let patches = patches $home_path

@@ -1,0 +1,20 @@
+{{- /* chezmoi:modify-template */ -}}
+
+{{- $in := dict -}}
+{{- if not (.chezmoi.stdin | empty) -}}
+{{-     $in = (.chezmoi.stdin | includeTemplate "fromMozLz4") | fromJson -}}
+{{- end -}}
+
+{{- $out := $in | jq `
+    .engines[]? |= select(.id != "google" and .id != "ddg")
+    | .engines[]?._metaData.hidden = true
+    | .engines = [
+        { "id": "google", "_name": "Google", "_isAppProvided": true, "_metaData": { "hidden": true } },
+        { "id": "ddg", "_name": "DuckDuckGo", "_isAppProvided": true, "_metaData": { "hideOneOffButton": false } }
+    ] + .engines` | first -}}
+
+{{- if deepEqual $in $out -}}
+{{-     .chezmoi.stdin -}}
+{{- else -}}
+{{-     $out | toJson | includeTemplate "toMozLz4" -}}
+{{- end -}}

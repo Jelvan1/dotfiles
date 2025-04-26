@@ -1,9 +1,17 @@
 def main [home_path: path, data_path: path] {
+    sudo pacman -S --needed base-devel
+    if (which yay | is-empty) {
+        git clone --depth 1 https://aur.archlinux.org/yay-bin.git /tmp/yay-bin
+        makepkg -D /tmp/yay-bin -is
+        rm -fr /tmp/yay-bin
+        yay --aur
+    }
+
     let data = open $data_path
     let packages = $data.packages.common.all
     | append $data.packages.common.linux
     | append $data.packages.linux
-    sudo pacman -S --needed ...$packages
+    yay -S --needed ...$packages
 
     # https://wiki.archlinux.org/title/Rust#Arch_Linux_package
     rustup default stable

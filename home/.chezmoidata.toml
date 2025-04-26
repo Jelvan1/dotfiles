@@ -12,7 +12,6 @@ all = [
     "fclones",
     "fd",
     "ffmpeg",
-    "firefox",
     "gcc",
     "git",
     "gitui",
@@ -22,6 +21,7 @@ all = [
     "lazygit",
     "less",
     "lua51",
+    "lz4",
     "luarocks",
     "mpv",
     "neovim",
@@ -43,6 +43,7 @@ linux = [
     "ripgrep-all",
     "rustup",
     "ttf-hack-nerd",
+    "zen-browser-bin", # AUR
 ]
 windows = [
     "Hack-NF-Mono",
@@ -52,6 +53,7 @@ windows = [
     "nu",
     "rga",
     "rustup-gnu",
+    "zen-browser",
 ]
 
 [packages]
@@ -60,9 +62,9 @@ linux = [
     "ghostty",
     "make",
     "man-db",
-    "noto-fonts", # ttf-font provider for firefox
+    "noto-fonts", # ttf-font provider
     "openssh",
-    "pipewire-jack", # jack provider for ffmpeg, firefox
+    "pipewire-jack", # jack provider
     "python-virtualenv",
     "rsync",
     "skim",
