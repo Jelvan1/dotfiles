@@ -117,12 +117,15 @@ def "to socket" []: [
 }
 
 def kill-agents []: table -> nothing {
-    each { kill -f $in.pid } | ignore # kill
+    if ($in | is-not-empty) {
+        kill -f ...$in.pid
+    }
 }
 
 def rm-sockets []: table -> nothing {
-    let sockets = $in
-    $sockets.path | each { rm -fpr $in } | ignore
+    if ($in | is-not-empty) {
+        rm -fpr ...$in.path
+    }
 }
 
 export-env {
