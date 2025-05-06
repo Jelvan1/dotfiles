@@ -23,16 +23,10 @@ type = "file"
 url = "https://github.com/nushell/nu_scripts/raw/main/themes/nu-themes/catppuccin-macchiato.nu"
 refreshPeriod = "168h"
 
-[".config/yazi/theme.toml"]
-type = "file"
-url = "https://github.com/catppuccin/yazi/raw/main/themes/macchiato/catppuccin-macchiato-blue.toml"
-filter.command = "nu"
-filter.args = [
-    "--stdin",
-    "-c",
-    {{ printf `
-        from toml
-        | update manager.syntect_theme "%s/.config/bat/themes/Catppuccin Macchiato.tmTheme"
-        | to toml` .chezmoi.homeDir | quote }}
-]
+[".config/yazi/flavors/catppuccin-macchiato.yazi"]
+type = "archive"
+url = "https://github.com/yazi-rs/flavors/archive/refs/heads/main.tar.gz"
+exact = true
+include = ["flavors-main/catppuccin-macchiato.yazi/*"]
+stripComponents = 2
 refreshPeriod = "168h"
