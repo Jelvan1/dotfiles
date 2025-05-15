@@ -11,7 +11,7 @@ def install-apps [new_apps: list<string>, home_path: path]: nothing -> nothing {
 
     let old = scoop export | from json
 
-    let new_buckets = [extras jelvan1 main nerd-fonts versions]
+    let new_buckets = [extras jelvan1 main nerd-fonts nonportable versions]
     let old_buckets = $old | get buckets.Name
     for $bucket in ($new_buckets | where $it not-in $old_buckets) {
         if $bucket == jelvan1 {
@@ -67,6 +67,27 @@ def patches [home_path: path]: nothing -> record {
             patch bat Main {
                 # don't set `$env.BAT_CONFIG_DIR`
                 reject env_set persist pre_install
+            }
+        )
+        glazewm-np: (
+            patch glazewm-np Nonportable {
+                # don't launch separate powershell process to keep control and
+                # simplify as the current script has quite some problems during
+                # installation and cleanup
+                to json
+                | jq r#'
+                    .architecture[] |= (
+                        .url += "#/setup.msi_"  | del(.installer))
+                    | .autoupdate.architecture[]
+                        .url += "#/setup.msi_"
+                    | .installer.script = [
+                        "if (!(is_admin)) { error \"$app requires admin rights to $cmd\"; break }",
+                        "Start-Process msiexec -ArgumentList @('/i', \"$dir\\setup.msi_\", '/qn', '/norestart') -Wait -Verb RunAs"]
+                    | .uninstaller.script = [
+                        "if (!(is_admin)) { error \"$app requires admin rights to $cmd\"; break }",
+                        "Start-Process msiexec -ArgumentList @('/x', \"$dir\\setup.msi_\", '/qn', '/norestart') -Wait -Verb RunAs"]
+                    | del(.shortcuts)'#
+                | from json
             }
         )
         keepassxc: (
