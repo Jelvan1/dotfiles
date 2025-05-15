@@ -11,7 +11,7 @@ def install-apps [new_apps: list<string>, home_path: path]: nothing -> nothing {
 
     let old = scoop export | from json
 
-    let new_buckets = [extras jelvan1 main nerd-fonts versions]
+    let new_buckets = [extras jelvan1 main nerd-fonts nonportable versions]
     let old_buckets = $old | get buckets.Name
     for $bucket in ($new_buckets | where $it not-in $old_buckets) {
         if $bucket == jelvan1 {
