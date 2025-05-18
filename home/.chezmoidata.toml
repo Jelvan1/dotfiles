@@ -78,6 +78,8 @@ linux = [
 windows = [
     "aria2",
     "fzf",
+    "glazewm-np",
     "powertoys",
     "wezterm",
+    "zebar",
 ]

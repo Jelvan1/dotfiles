@@ -9,6 +9,7 @@ config.enable_kitty_keyboard = true -- support ctrl + shift
 config.enable_tab_bar = false
 config.font = wezterm.font("Hack Nerd Font Mono")
 config.font_size = 11
+config.window_decorations = "RESIZE"
 config.window_padding = {
   left = 0,
   right = 0,
