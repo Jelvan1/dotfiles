@@ -34,10 +34,13 @@ all = [
     "tldr",
     "typst",
     "yazi",
+    "yt-dlp",
     "zig",
     "zoxide",
 ]
 linux = [
+    "aur/fend-bin",
+    "aur/zen-browser-bin",
     "git-delta",
     "jujutsu",
     "npm",
@@ -45,11 +48,11 @@ linux = [
     "ripgrep-all",
     "rustup",
     "ttf-hack-nerd",
-    "zen-browser-bin", # AUR
 ]
 windows = [
     "Hack-NF-Mono",
     "delta",
+    "fend",
     "jj",
     "nodejs",
     "nu",
