@@ -12,6 +12,7 @@ all = [
     "fclones",
     "fd",
     "ffmpeg",
+    "fzf",
     "gcc",
     "git",
     "gitui",
@@ -80,7 +81,6 @@ linux = [
 ]
 windows = [
     "aria2",
-    "fzf",
     "glazewm-np",
     "powertoys",
     "wezterm",
