@@ -5,6 +5,7 @@ all = [
     "bottom",
     "chezmoi",
     "difftastic",
+    "discord",
     "dotnet-sdk",
     "dust",
     "eza",

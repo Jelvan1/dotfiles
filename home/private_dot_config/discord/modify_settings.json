@@ -1,0 +1,18 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- /* chezmoi:template:line-endings=lf */ -}}
+
+{{- $in := dict -}}
+{{- if not (.chezmoi.stdin | empty) -}}
+{{-     $in = .chezmoi.stdin | fromJson -}}
+{{- end -}}
+
+{{- $out := $in | jq `
+    .OPEN_ON_STARTUP = false
+    | .MINIMIZE_TO_TRAY = false
+    | .SKIP_HOST_UPDATE = true` | first -}}
+
+{{- if deepEqual $in $out -}}
+{{-     .chezmoi.stdin -}}
+{{- else -}}
+{{-     $out | toPrettyJson -}}
+{{- end -}}

@@ -69,6 +69,17 @@ def patches [home_path: path]: nothing -> record {
                 reject env_set persist pre_install
             }
         )
+        discord: (
+            patch discord Extras {
+                # don't use portable config dir
+                reject persist
+                | insert post_install [
+                    r#'$cfg_dir = "$env:USERPROFILE/.config/discord"'#,
+                    r#'New-Item -ItemType Directory -Path "$cfg_dir" -Force | Out-Null'#,
+                    r#'New-Item -ItemType Junction -Path "$dir/data" -Target "$cfg_dir" | Out-Null'#
+                ]
+            }
+        )
         glazewm-np: (
             patch glazewm-np Nonportable {
                 # don't launch separate powershell process to keep control and
