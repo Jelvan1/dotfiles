@@ -1,14 +1,16 @@
+use std assert
+
 def main [home_path: path, data_path: path] {
     let data = open $data_path
     let packages = $data.packages.common.all
     | append $data.packages.common.windows
     | append $data.packages.windows
     install-apps $packages $home_path
+
+    install-regs $home_path
 }
 
 def install-apps [new_apps: list<string>, home_path: path]: nothing -> nothing {
-    use std assert
-
     let old = scoop export | from json
 
     let new_buckets = [extras jelvan1 main nerd-fonts nonportable versions]
@@ -45,6 +47,19 @@ def install-apps [new_apps: list<string>, home_path: path]: nothing -> nothing {
         print $install_apps
         scoop install ...$install_apps
     }
+}
+
+def install-regs [home_path: path]: nothing -> nothing {
+    (reg-add
+        "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
+        Wallpaper
+        REG_SZ
+        $"($home_path)/.local/share/wallpapers/Sunset-room.png")
+    (reg-add
+        "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
+        WallpaperStyle
+        REG_SZ
+        4)
 }
 
 def patches [home_path: path]: nothing -> record {
@@ -136,4 +151,17 @@ def patch-context-menu []: record -> record {
     | upsert pre_uninstall {
         r#'reg import "$dir\uninstall-context.reg"'#
     }
+}
+
+def reg-add [key: string, value: string, type: string, data: string] {
+    let result = reg query $key /v $value /t $type | complete | str trim
+    if ($result.exit_code == 0) {
+        assert ($result.stderr | is-empty)
+        assert ($result.stdout | str contains "1 match")
+        let old_data = $result.stdout | lines | get 1 | split row -r \s+ | last
+        if ($data == $old_data) {
+            return
+        }
+    }
+    reg add $key /v $value /t $type /d $data /f
 }
