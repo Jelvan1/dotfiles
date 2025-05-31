@@ -10,5 +10,6 @@
 {{ if ne .chezmoi.os "windows" }}
 .config/scoop
 .config/wezterm
+.glzr
 AppData
 {{ end }}
