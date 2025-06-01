@@ -60,6 +60,19 @@ def install-regs [home_path: path]: nothing -> nothing {
         WallpaperStyle
         REG_SZ
         4)
+
+    (reg-add
+        "HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem"
+        LongPathsEnabled
+        REG_DWORD
+        0x1)
+    (reg-add
+        "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Keyboard Layout"
+        "Scancode Map"
+        REG_BINARY
+        (0x[00 00 00 00 00 00 00 00
+            02 00 00 00 01 00 3A 00 # map Caps Lock to Escape
+            00 00 00 00] | encode hex))
 }
 
 def patches [home_path: path]: nothing -> record {
