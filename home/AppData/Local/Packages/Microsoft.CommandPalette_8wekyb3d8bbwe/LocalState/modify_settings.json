@@ -1,0 +1,24 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- /* chezmoi:template:line-endings=crlf */ -}}
+
+{{- $in := dict -}}
+{{- if not (.chezmoi.stdin | empty) -}}
+{{-     $in = .chezmoi.stdin | fromJson -}}
+{{- end -}}
+
+{{- $out := $in | jq `
+    .Hotkey = {
+        "alt": true,
+        "code": 32,
+        "ctrl": false,
+        "key": "",
+        "shift": false,
+        "win": false
+    }
+    | .ShowSystemTrayIcon = false` | first -}}
+
+{{- if deepEqual $in $out -}}
+{{-     .chezmoi.stdin -}}
+{{- else -}}
+{{-     $out | toPrettyJson -}}
+{{- end -}}
