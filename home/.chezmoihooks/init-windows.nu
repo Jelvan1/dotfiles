@@ -7,6 +7,10 @@ def main [home_path: path, data_path: path] {
     | append $data.packages.windows
     install-apps $packages $home_path
 
+    rustup default stable
+    rustup component add --toolchain nightly rust-analyzer
+    rustup component add --toolchain stable rust-analyzer
+
     install-regs $home_path
 }
 
