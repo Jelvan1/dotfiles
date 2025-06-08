@@ -17,10 +17,13 @@ opt.wrap = true
 
 -- https://github.com/nushell/integrations/blob/fd06ad143dccc5ba106338fb3355b1d9a34c1d4b/nvim/init.lua
 opt.shell = "nu"
-opt.shelltemp = false
 opt.shellcmdflag = "--stdin --no-newline -c"
-opt.shellredir = "o+e>"
-opt.shellpipe = "| complete | update stderr { ansi strip } | tee { get stderr | save -f -r %s } | into record"
+opt.shellpipe = "| complete | update stderr { ansi strip } | tee { get stderr | save -fr %s } | into record"
+opt.shellquote = ""
+opt.shellredir = "o+e> %s"
+opt.shelltemp = false
+opt.shellxescape = ""
+opt.shellxquote = ""
 
 -- disable some default providers
 for _, provider in ipairs { "node", "perl", "python3", "ruby" } do
