@@ -1,5 +1,5 @@
 [ui]
-diff.format = "git"
+diff-formatter = ":git"
 pager = "delta"
 
 [user]
