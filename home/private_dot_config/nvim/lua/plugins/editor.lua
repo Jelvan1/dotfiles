@@ -13,6 +13,35 @@ return {
   },
 
   {
+    "kevinhwang91/nvim-ufo",
+    dependencies = "kevinhwang91/promise-async",
+    event = "BufReadPost",
+    opts = {
+      provider_selector = function() -- (bufnr, filetype, buftype)
+        return { "treesitter", "indent" }
+      end,
+      close_fold_kinds_for_ft = {
+        c = { "function_definition" },
+        cpp = { "function_definition" },
+        rust = { "function_item", "macro_definition" },
+      },
+    },
+    init = function()
+      -- https://github.com/kevinhwang91/nvim-ufo?tab=readme-ov-file#usage
+      vim.keymap.set("n", "zR", require("ufo").openAllFolds)
+      vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
+      vim.keymap.set("n", "zr", require("ufo").openFoldsExceptKinds)
+      vim.keymap.set("n", "zm", require("ufo").closeFoldsWith)
+      vim.keymap.set("n", "zk", function()
+        local winid = require("ufo").peekFoldedLinesUnderCursor()
+        if not winid then
+          vim.lsp.buf.hover()
+        end
+      end, { desc = "Preview Fold" })
+    end,
+  },
+
+  {
     "RaafatTurki/hex.nvim",
     cmd = { "HexDump", "HexAssemble", "HexToggle" },
     opts = {},
