@@ -6,10 +6,11 @@
 {{- end -}}
 
 {{- $out := $in | jq `
-    .engines[]? |= select(.id != "google" and .id != "ddg")
+    .engines[]? |= select(.id != "google" and .id != "bing" and .id != "ddg")
     | .engines[]?._metaData.hidden = true
     | .engines = [
         { "id": "google", "_name": "Google", "_isAppProvided": true, "_metaData": { "hidden": true } },
+        { "id": "bing", "_name": "Bing", "_isAppProvided": true, "_metaData": { "hidden": true } },
         { "id": "ddg", "_name": "DuckDuckGo", "_isAppProvided": true, "_metaData": { "hideOneOffButton": false } }
     ] + .engines` | first -}}
 
