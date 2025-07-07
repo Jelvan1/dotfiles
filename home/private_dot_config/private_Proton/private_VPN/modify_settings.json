@@ -1,0 +1,23 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- /* chezmoi:template:line-endings=native */ -}}
+
+{{- $in := dict -}}
+{{- if not (.chezmoi.stdin | empty) -}}
+{{-     $in = .chezmoi.stdin | fromJson -}}
+{{- end -}}
+
+{{- $out := $in | jq `
+    .anonymous_crash_reports = false
+    | .killswitch = 1` | first -}}
+{{- if eq .chezmoi.os "windows" -}}
+{{-     $out = $in | jq `
+        .AreAutomaticUpdatesEnabled = "false"
+        | .IsAutoLaunchEnabled = "false"
+        | .IsKillSwitchEnabled = "true"` | first -}}
+{{- end -}}
+
+{{- if deepEqual $in $out -}}
+{{-     .chezmoi.stdin -}}
+{{- else -}}
+{{-     $out | toPrettyJson -}}
+{{- end -}}
