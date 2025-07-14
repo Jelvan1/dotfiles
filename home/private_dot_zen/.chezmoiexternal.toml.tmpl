@@ -1,4 +1,9 @@
 ["profile/extensions/uBlock0@raymondhill.net.xpi"]
 type = "file"
-url = "{{ gitHubLatestReleaseAssetURL "gorhill/uBlock" "uBlock0_*.firefox.signed.xpi" }}"
+url = "{{ gitHubReleases "gorhill/uBlock" | toJson | fromJson | jq `first(
+    .[]
+    | select(.draft == false and .prerelease == false)
+    | .assets[]
+    | select(.name | contains("firefox.signed"))
+    | .browser_download_url)` | first }}"
 refreshPeriod = "168h"
