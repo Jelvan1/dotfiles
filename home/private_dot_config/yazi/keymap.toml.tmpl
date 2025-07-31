@@ -9,4 +9,21 @@ prepend_keymap = [
     { on = "C", run = "plugin ouch 7z", desc = "Compress with ouch" },
 
     { on = "<A-p>", run = "plugin toggle-pane min-preview", desc = "Show/hide preview pane" },
+
+{{- if eq .chezmoi.os "linux" }}
+
+    # plugin gvfs
+    { on = [ "M", "a" ], run = "plugin gvfs -- add-mount", desc = "Add GVFS mount URI" },
+    # edit/remove clears saved passwords
+    { on = [ "M", "e" ], run = "plugin gvfs -- edit-mount", desc = "Edit GVFS mount URI" },
+    { on = [ "M", "r" ], run = "plugin gvfs -- remove-mount", desc = "Remove GVFS mount URI" },
+
+    { on = [ "M", "m" ], run = "plugin gvfs -- select-then-mount --jump", desc = "Mount device" },
+    { on = [ "M", "u" ], run = "plugin gvfs -- select-then-unmount --eject", desc = "Unmount/eject device" },
+    # force ignores outstanding file operations
+    { on = [ "M", "U" ], run = "plugin gvfs -- select-then-unmount --eject --force", desc = "Unmount/eject device (force)" },
+
+    { on = [ "g", "m" ], run = "plugin gvfs -- jump-to-device", desc = "Go to mount point" },
+
+{{- end }}
 ]
