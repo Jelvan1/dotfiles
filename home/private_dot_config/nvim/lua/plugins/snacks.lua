@@ -54,6 +54,9 @@ return {
         { section = "startup" },
       },
     },
+    explorer = {
+      replace_netrw = false, -- use yazi
+    },
     picker = {
       previewers = {
         diff = { builtin = false }, -- use delta

@@ -8,7 +8,6 @@ extras = [
     "editor.aerial",
     "editor.dial",
     "editor.inc-rename",
-    "editor.mini-files",
     "lang.clangd",
     "lang.cmake",
     "lang.docker",

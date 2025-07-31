@@ -21,6 +21,7 @@ opt.shellcmdflag = "--stdin --no-newline -c"
 opt.shellpipe = "| complete | update stderr { ansi strip } | tee { get stderr | save -fr %s } | into record"
 opt.shellquote = ""
 opt.shellredir = "o+e> %s"
+opt.shellslash = true -- yazi.nvim + nu requires forward slashes in paths
 opt.shelltemp = false
 opt.shellxescape = ""
 opt.shellxquote = ""
