@@ -4,6 +4,7 @@
 {{ if ne .chezmoi.os "linux" }}
 .config/atuin
 .config/ghostty
+.config/pacman
 .config/zellij
 {{ end }}
 
