@@ -23,6 +23,7 @@ extras = [
     "lang.zig",
     "test.core",
     "ui.treesitter-context",
+    "util.chezmoi",
     "util.dot",
     "util.mini-hipatterns",
 ]
