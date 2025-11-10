@@ -2,7 +2,7 @@
 type = "file"
 url = "{{ gitHubReleases "gorhill/uBlock" | toJson | fromJson | jq `first(
     .[]
-    | select(.draft == false and .prerelease == false)
+    | select(.draft == false and .prerelease == false and .assets != null)
     | .assets[]
     | select(.name | contains("firefox.signed"))
     | .browser_download_url)` | first }}"
