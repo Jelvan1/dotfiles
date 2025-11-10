@@ -2,6 +2,6 @@ auto-update = off
 command = nu
 font-family = Hack Nerd Font Mono
 font-size = 11
-theme = catppuccin-macchiato
+theme = Catppuccin Macchiato
 window-padding-x = 0
 window-padding-y = 0
