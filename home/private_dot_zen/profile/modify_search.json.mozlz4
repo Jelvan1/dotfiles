@@ -9,9 +9,9 @@
     .engines[]? |= select(.id != "google" and .id != "bing" and .id != "ddg")
     | .engines[]?._metaData.hidden = true
     | .engines = [
-        { "id": "google", "_name": "Google", "_isAppProvided": true, "_metaData": { "hidden": true } },
-        { "id": "bing", "_name": "Bing", "_isAppProvided": true, "_metaData": { "hidden": true } },
-        { "id": "ddg", "_name": "DuckDuckGo", "_isAppProvided": true, "_metaData": { "hideOneOffButton": false } }
+        { "id": "google", "_name": "Google", "_isConfigEngine": true, "_metaData": { "hidden": true } },
+        { "id": "bing", "_name": "Bing", "_isConfigEngine": true, "_metaData": { "hidden": true } },
+        { "id": "ddg", "_name": "DuckDuckGo", "_isConfigEngine": true, "_metaData": { "hideOneOffButton": false } }
     ] + .engines` | first -}}
 
 {{- if deepEqual $in $out -}}
