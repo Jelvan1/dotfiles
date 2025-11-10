@@ -8,8 +8,7 @@ def main [home_path: path, data_path: path] {
     install-apps $packages $home_path
 
     rustup default stable
-    rustup component add --toolchain nightly rust-analyzer
-    rustup component add --toolchain stable rust-analyzer
+    rustup component add rust-analyzer
 
     install-regs $home_path
 }

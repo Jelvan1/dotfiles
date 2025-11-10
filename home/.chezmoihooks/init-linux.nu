@@ -20,8 +20,6 @@ def main [home_path: path, data_path: path] {
 
     # https://wiki.archlinux.org/title/Rust#Arch_Linux_package
     rustup default stable
-    rustup component add --toolchain nightly rust-analyzer
-    rustup component add --toolchain stable rust-analyzer
 
     if ($env.SHELL != /bin/nu) {
         chsh -s /bin/nu

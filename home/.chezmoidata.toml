@@ -50,6 +50,7 @@ linux = [
     "proton-vpn-gtk-app",
     "ripgrep-all",
     "rustup",
+    "rust-analyzer",
     "ttf-hack-nerd",
 ]
 windows = [
