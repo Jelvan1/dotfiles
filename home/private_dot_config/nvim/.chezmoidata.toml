@@ -1,5 +1,7 @@
 [lazyvim]
 extras = [
+    "ai.copilot",
+    "ai.copilot-chat",
     "coding.mini-surround",
     "coding.neogen",
     "coding.yanky",
