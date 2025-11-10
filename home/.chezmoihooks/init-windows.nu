@@ -171,11 +171,11 @@ def patch-context-menu []: record -> record {
 
 def reg-add [key: string, value: string, type: string, data: string] {
     let result = reg query $key /v $value /t $type | complete | str trim
-    if ($result.exit_code == 0) {
+    if $result.exit_code == 0 {
         assert ($result.stderr | is-empty)
         assert ($result.stdout | str contains "1 match")
         let old_data = $result.stdout | lines | get 1 | split row -r \s+ | last
-        if ($data == $old_data) {
+        if $data == $old_data {
             return
         }
     }

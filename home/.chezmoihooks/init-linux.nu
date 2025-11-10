@@ -21,7 +21,7 @@ def main [home_path: path, data_path: path] {
     # https://wiki.archlinux.org/title/Rust#Arch_Linux_package
     rustup default stable
 
-    if ($env.SHELL != /bin/nu) {
+    if $env.SHELL != /bin/nu {
         chsh -s /bin/nu
     }
 
@@ -30,7 +30,7 @@ def main [home_path: path, data_path: path] {
         # https://github.com/yuk7/ArchWSL/issues/342
         # https://github.com/microsoft/wslg/wiki/Diagnosing-%22cannot-open-display%22-type-issues-with-WSLg#x11-display-socket
         let socket = (ls -lD /tmp/.X11-unix | get 0)
-        if ($socket.type == symlink and $socket.target == /mnt/wslg/.X11-unix) {
+        if $socket.type == symlink and $socket.target == /mnt/wslg/.X11-unix {
             return
         }
 
