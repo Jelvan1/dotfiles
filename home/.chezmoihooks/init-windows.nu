@@ -157,6 +157,11 @@ def patches [home_path: path]: nothing -> record {
                 reject notes | patch-context-menu
             }
         )
+        zen-browser: (
+            patch zen-browser Extras {
+                reject notes persist post_install
+            }
+        )
     }
 }
 
