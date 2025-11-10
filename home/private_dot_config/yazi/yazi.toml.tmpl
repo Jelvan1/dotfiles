@@ -36,7 +36,7 @@ prepend_previewers = [
 {{- if eq .chezmoi.os "linux" }}
 
     # Don't preview files in mounted locations (except folders/text):
-    { name = "*/", run = "folder", sync = true },
+    { name = "*/", run = "folder" },
     { mime = "text/*", run = "code" },
     { name = "/run/user/{{ .chezmoi.uid }}/gvfs/**/*", run = "noop" },
     { name = "/run/media/{{ .chezmoi.username }}/**/*", run = "noop" },
