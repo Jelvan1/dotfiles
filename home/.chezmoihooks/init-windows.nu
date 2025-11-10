@@ -43,7 +43,7 @@ def install-apps [new_apps: list<string>, home_path: path]: nothing -> nothing {
     let install_apps = (
         $new_apps
         | where $it not-in $old_apps.Name or $it in $uninstall_apps.Name
-        | each {|app| $patches | get -i $app | default $app }
+        | each {|app| $patches | get -o $app | default $app }
     )
     if ($install_apps | is-not-empty) {
         print "The following apps will be installed:"
