@@ -19,6 +19,7 @@ extras = [
     "lang.python",
     "lang.rust",
     "lang.toml",
+    "lang.typst",
     "lang.yaml",
     "lang.zig",
     "test.core",
