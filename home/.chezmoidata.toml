@@ -86,6 +86,7 @@ linux = [
 windows = [
     "aria2",
     "glazewm-np",
+    "gzip", # mason fails to install tree-sitter-cli without
     "powertoys",
     "wezterm",
     "zebar",
