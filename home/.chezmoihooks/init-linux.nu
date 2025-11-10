@@ -1,4 +1,9 @@
 def main [home_path: path, data_path: path] {
+    open /etc/pacman.conf
+    | str replace -mr r#'^#Color$'# "Color"
+    | str replace -mr r#'^#VerbosePkgLists$'# "VerbosePkgLists"
+    | sudo nu --stdin -c "save -f /etc/pacman.conf"
+
     sudo pacman -S --needed base-devel
     if (which yay | is-empty) {
         git clone --depth 1 https://aur.archlinux.org/yay-bin.git /tmp/yay-bin
