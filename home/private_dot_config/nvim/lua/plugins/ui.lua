@@ -95,7 +95,7 @@ return {
   },
 
   {
-    "echasnovski/mini.trailspace",
+    "nvim-mini/mini.trailspace",
     event = "LazyFile",
     keys = {
       {
