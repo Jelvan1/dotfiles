@@ -9,6 +9,7 @@
     .download_updates_automatically = false
     | .enabled |= (
         .[] = false
+        | ."File Locksmith" = true
         | .CmdPal = true
         | .ColorPicker = true)
     | .enable_experimentation = false

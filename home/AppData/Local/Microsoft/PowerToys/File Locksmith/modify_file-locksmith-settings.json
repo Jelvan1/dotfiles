@@ -1,0 +1,14 @@
+{{- /* chezmoi:modify-template */ -}}
+
+{{- $in := dict -}}
+{{- if not (.chezmoi.stdin | empty) -}}
+{{-     $in = .chezmoi.stdin | fromJson -}}
+{{- end -}}
+
+{{- $out := $in | jq `.showInExtendedContextMenu = true` | first -}}
+
+{{- if deepEqual $in $out -}}
+{{-     .chezmoi.stdin -}}
+{{- else -}}
+{{-     $out | toJson -}}
+{{- end -}}
