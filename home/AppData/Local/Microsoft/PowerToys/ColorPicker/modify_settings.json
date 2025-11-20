@@ -9,12 +9,12 @@
     .name = "ColorPicker"
     | .properties = {
         "ActivationShortcut": {
-            "alt": false,
+            "alt": true,
             "code": 67,
             "ctrl": false,
             "key": "",
             "shift": true,
-            "win": true
+            "win": false,
         }
     }` | first -}}
 
