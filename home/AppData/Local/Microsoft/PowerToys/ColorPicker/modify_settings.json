@@ -1,5 +1,4 @@
 {{- /* chezmoi:modify-template */ -}}
-{{- /* chezmoi:template:line-endings=crlf */ -}}
 
 {{- $in := dict -}}
 {{- if not (.chezmoi.stdin | empty) -}}

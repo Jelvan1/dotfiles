@@ -1,5 +1,4 @@
 {{- /* chezmoi:modify-template */ -}}
-{{- /* chezmoi:template:line-endings=crlf */ -}}
 
 {{- $in := dict -}}
 {{- if not (.chezmoi.stdin | empty) -}}
@@ -10,8 +9,8 @@
     .download_updates_automatically = false
     | .enabled |= (
         .[] = false
-        | .ColorPicker = true
-        | .CmdPal = true)
+        | .CmdPal = true
+        | .ColorPicker = true)
     | .enable_experimentation = false
     | .show_new_updates_toast_notification = false
     | .show_whats_new_after_updates = false
