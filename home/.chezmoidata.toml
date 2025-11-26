@@ -35,6 +35,7 @@ all = [
     "starship",
     "tldr",
     "typst",
+    "uv",
     "yazi",
     "yt-dlp",
     "zig",
@@ -75,7 +76,6 @@ linux = [
     "noto-fonts", # ttf-font provider
     "openssh",
     "pipewire-jack", # jack provider
-    "python-virtualenv",
     "rsync",
     "skim",
     "unzip",
