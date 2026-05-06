@@ -1,6 +1,10 @@
 return {
   {
     "nvim-neorg/neorg",
+    dependencies = {
+      "nvim-neorg/tree-sitter-norg",
+      "nvim-neorg/tree-sitter-norg-meta",
+    },
     lazy = false,
     version = "*", -- latest stable release
     opts = {
