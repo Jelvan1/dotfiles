@@ -112,20 +112,25 @@ def patches [home_path: path]: nothing -> record {
                 # don't launch separate powershell process to keep control and
                 # simplify as the current script has quite some problems during
                 # installation and cleanup
-                to json
-                | jq r#'
-                    .architecture[] |= (
-                        .url += "#/setup.msi_"  | del(.installer))
-                    | .autoupdate.architecture[]
-                        .url += "#/setup.msi_"
-                    | .installer.script = [
-                        "if (!(is_admin)) { error \"$app requires admin rights to $cmd\"; break }",
-                        "Start-Process msiexec -ArgumentList @('/i', \"$dir\\setup.msi_\", '/qn', '/norestart') -Wait -Verb RunAs"]
-                    | .uninstaller.script = [
-                        "if (!(is_admin)) { error \"$app requires admin rights to $cmd\"; break }",
-                        "Start-Process msiexec -ArgumentList @('/x', \"$dir\\setup.msi_\", '/qn', '/norestart') -Wait -Verb RunAs"]
-                    | del(.shortcuts)'#
-                | from json
+                update architecture {
+                    items {|k, v| { $k: ($v | update url { $in + "#/setup.msi_" } | reject installer) } }
+                    | into record
+                }
+                | update autoupdate.architecture {
+                    items {|k, v| { $k: ($v | update url { $in + "#/setup.msi_" }) } }
+                    | into record
+                }
+                | merge {
+                    installer: { script: [
+                      "if (!(is_admin)) { error \"$app requires admin rights to $cmd\"; break }",
+                      "Start-Process msiexec -ArgumentList @('/i', \"$dir\\setup.msi_\", '/qn', '/norestart') -Wait -Verb RunAs"
+                    ] }
+                    uninstaller: { script: [
+                      "if (!(is_admin)) { error \"$app requires admin rights to $cmd\"; break }",
+                      "Start-Process msiexec -ArgumentList @('/x', \"$dir\\setup.msi_\", '/qn', '/norestart') -Wait -Verb RunAs"
+                    ] }
+                }
+                | reject shortcuts
             }
         )
         keepassxc: (
