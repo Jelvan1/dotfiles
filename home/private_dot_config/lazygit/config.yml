@@ -3,14 +3,23 @@ disableStartupPopups: true
 git:
   diffRenderers:
     - command: delta --paging=never
+  ignoreWhitespaceInDiffView: true
 
 gui:
+  animateExplosion: false
   expandFocusedSidePanel: true
   expandedSidePanelWeight: 2
+  fileTreeSortOrder: foldersFirst
   filterMode: fuzzy
   nerdFontsVersion: "3"
   scrollHeight: 8
   scrollPastBottom: false
+  showBottomLine: false
   showCommandLog: false
   showRandomTip: false
   sidePanelWidth: .2
+
+update:
+  method: never
+
+quitOnTopLevelReturn: true
