@@ -25,9 +25,15 @@ prepend_preloaders = [
 
 {{- end }}
 
+    # https://mediaarea.net/en/MediaInfo/Support/Formats
     # Replace magick, image, video with mediainfo
     { mime = "{audio,video,image}/*", run = "mediainfo" },
-    { mime = "application/subrip", run = "mediainfo" },
+    # .srt subtitle, adobe illustrator, adobe photoshop file
+    { mime = "application/{subrip,postscript,illustrator,dvb.ait,vnd.adobe.illustrator,eps}", run = "mediainfo" },
+
+    # Sometimes AI file is recognized as "application/pdf". Lmao.
+    # In this case use file extension instead:
+    { url = "*.{ai,eps,ait}", run = "mediainfo" },
 
 ]
 
@@ -43,10 +49,15 @@ prepend_previewers = [
 
 {{- end }}
 
-    # Replace magick, image, video with mediainfo
     # https://mediaarea.net/en/MediaInfo/Support/Formats
-    { mime = "{audio,video,image}/*", run = "mediainfo" },
-    { mime = "application/subrip", run = "mediainfo" },
+    # Replace magick, image, video with mediainfo
+    { mime = "{audio,video,image}/*", run = "mediainfo"},
+    # .srt subtitle, adobe illustrator, adobe photoshop file
+    { mime = "application/{subrip,postscript,illustrator,dvb.ait,vnd.adobe.illustrator,eps}", run = "mediainfo" },
+
+    # Sometimes AI file is recognized as "application/pdf". Lmao.
+    # In this case use file extension instead:
+    { url = "*.{ai,eps,ait}", run = "mediainfo" },
 
     # Archive previewer
     { mime = "application/{*zip,tar,bzip2,7z*,rar,xz,zstd,java-archive}", run = "ouch --show-file-icons" },

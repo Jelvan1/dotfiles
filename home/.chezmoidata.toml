@@ -18,6 +18,7 @@ all = [
     "git",
     "gitui",
     "hyperfine",
+    "imagemagick",
     "jq",
     "keepassxc",
     "lazygit",
