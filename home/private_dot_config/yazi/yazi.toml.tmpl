@@ -3,12 +3,10 @@ show_hidden = true
 
 [opener]
 edit = [
-    { run = 'nvim "$@"', block = true, for = "unix" },
-    { run = 'nvim %*', block = true, for = "windows" },
+    { run = 'nvim %s', block = true },
 ]
 extract = [
-    { run = 'ouch d -y "$@"', desc = "Extract here with ouch", for = "unix" },
-    { run = 'ouch d -y %*', desc = "Extract here with ouch", for = "windows" },
+    { run = 'ouch d -y %s', desc = "Extract here with ouch" },
 ]
 
 [plugin]
