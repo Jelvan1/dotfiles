@@ -73,7 +73,7 @@ export def --env "ssh-agent clean up" []: nothing -> nothing {
 }
 
 def ssh-env-file []: nothing -> path {
-    $nu.temp-path | path join $"ssh-agent-($env.USER).nuon"
+    $nu.temp-dir | path join $"ssh-agent-($env.USER).nuon"
 }
 
 def dangling-agents []: nothing -> record {
