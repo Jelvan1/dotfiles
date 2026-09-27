@@ -18,8 +18,8 @@ prepend_preloaders = [
     #   - virtual filesystems (e.g., SFTP)
     #     (use absolute path since $env.XDG_RUNTIME_DIR won't work)
     #   - removable media (e.g., USB drives)
-    { name = "/run/user/{{ .chezmoi.uid }}/gvfs/**/*", run = "noop" },
-    { name = "/run/media/{{ .chezmoi.username }}/**/*", run = "noop" },
+    { url = "/run/user/{{ .chezmoi.uid }}/gvfs/**/*", run = "noop" },
+    { url = "/run/media/{{ .chezmoi.username }}/**/*", run = "noop" },
 
 {{- end }}
 
@@ -40,10 +40,10 @@ prepend_previewers = [
 {{- if eq .chezmoi.os "linux" }}
 
     # Don't preview files in mounted locations (except folders/text):
-    { name = "*/", run = "folder" },
+    { url = "*/", run = "folder" },
     { mime = "text/*", run = "code" },
-    { name = "/run/user/{{ .chezmoi.uid }}/gvfs/**/*", run = "noop" },
-    { name = "/run/media/{{ .chezmoi.username }}/**/*", run = "noop" },
+    { url = "/run/user/{{ .chezmoi.uid }}/gvfs/**/*", run = "noop" },
+    { url = "/run/media/{{ .chezmoi.username }}/**/*", run = "noop" },
 
 {{- end }}
 
